@@ -20,3 +20,6 @@ public class RentACarApplication {
 	}
     */ // bu kısmı config e taşımak paketlemeye daha uygun!
 }
+//Notlar*****
+//Lombok run time da olduğu için bazen tercih edilmeyebilir
+//Circular mapping önlemek için dto kullanırız

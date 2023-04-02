@@ -23,13 +23,21 @@ public class CarManager implements CarService {
     private final ModelMapper mapper;
 
     @Override
-    public List<GetAllCarsResponse> getAll() {
-        List<Car> cars = repository.findAll();
-        List<GetAllCarsResponse> responses = cars
-                .stream()
-                .map(car -> mapper.map(car, GetAllCarsResponse.class))
-                .toList();
-        return responses;
+    public List<GetAllCarsResponse> getAll(int preference) {
+        //0-show maintenance 1-not show maintenance
+        List<Car> cars ;
+        if (preference == 1) {
+            cars=repository.findAllByStateNot(3);
+        } else {
+          cars=repository.findAll();
+        }
+            List<GetAllCarsResponse> responses = cars
+                    .stream()
+                    .map(car -> mapper.map(car, GetAllCarsResponse.class))
+                    .toList();
+            return responses;
+
+
 
     }
 

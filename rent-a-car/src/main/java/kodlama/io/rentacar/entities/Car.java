@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -23,4 +25,6 @@ public class Car {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
+    @OneToMany(mappedBy = "car")//modelde car id foreign key olarak tutulmayacak!
+    private List<Maintenance> maintenances;
 }

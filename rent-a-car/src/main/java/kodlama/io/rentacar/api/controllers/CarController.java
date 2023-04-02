@@ -20,9 +20,9 @@ import java.util.List;
 @AllArgsConstructor
 public class CarController {
     private final CarService service;
-    @GetMapping
-    List<GetAllCarsResponse> getAll(){
-        return  service.getAll();
+    @GetMapping("/filter/{pref}")
+    List<GetAllCarsResponse> getAll(@PathVariable int pref){
+        return  service.getAll(pref);
     }
     @GetMapping("/{id}") public GetCarResponse getById(@PathVariable int id){
         return  service.getById(id);
