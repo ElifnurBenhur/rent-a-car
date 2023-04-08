@@ -52,6 +52,7 @@ public class MaintenanceManager implements MaintenanceService {
 
     @Override
     public GetMaintenanceResponse returnCarFromMaintenance(int carId) {
+        checkIfCarIsNotUnderMaintenance(carId);
         Maintenance maintenance=repository.findByCarIdAndIsCompletedIsFalse(carId);
         maintenance.setCompleted(true);
         maintenance.setEndDate(LocalDateTime.now());
@@ -97,6 +98,7 @@ public class MaintenanceManager implements MaintenanceService {
     @Override
     public void delete(int id) {
         checkIfMaintenanceExist(id);
+        carService.changeState(repository.findById(id).get().getCar().getId(), State.AVAILABLE);
         repository.deleteById(id);
     }
 

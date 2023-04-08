@@ -33,4 +33,6 @@ public class Car {
     private List<Maintenance> maintenances;
 
 
+    @OneToMany(mappedBy = "car")//modelde car id foreign key olarak tutulmayacak!
+    private List<Rental> rentals;
 }
