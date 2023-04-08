@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateCarRequest {
+
     private int modelYear;
     private String plate;
     private int state;//1-Available 2-Rented 3-Maintenance

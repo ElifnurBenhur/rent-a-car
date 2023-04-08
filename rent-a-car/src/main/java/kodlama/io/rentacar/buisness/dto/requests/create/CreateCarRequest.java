@@ -12,7 +12,8 @@ import lombok.Setter;
 public class CreateCarRequest {
     private int modelYear;
     private String plate;
-    private int state;//1-Available 2-Rented 3-Maintenance
+    //State almaya gerek yok default available olmalı create olurken!!
+   // private int state;//1-Available 2-Rented 3-Maintenance
     private double dailyPrice;
     private int modelId;
 

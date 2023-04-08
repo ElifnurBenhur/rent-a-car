@@ -7,7 +7,7 @@ import kodlama.io.rentacar.buisness.dto.responses.create.CreateCarResponse;
 import kodlama.io.rentacar.buisness.dto.responses.get.GetAllCarsResponse;
 import kodlama.io.rentacar.buisness.dto.responses.get.GetCarResponse;
 import kodlama.io.rentacar.buisness.dto.responses.update.UpdateCarResponse;
-import kodlama.io.rentacar.entities.Car;
+import kodlama.io.rentacar.entities.enums.State;
 import kodlama.io.rentacar.repository.CarRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,14 +23,10 @@ public class CarManager implements CarService {
     private final ModelMapper mapper;
 
     @Override
-    public List<GetAllCarsResponse> getAll(int preference) {
+    public List<GetAllCarsResponse> getAll(boolean includeMaintenance) {
         //0-show maintenance 1-not show maintenance
-        List<Car> cars ;
-        if (preference == 1) {
-            cars=repository.findAllByStateNot(3);
-        } else {
-          cars=repository.findAll();
-        }
+        List<Car> cars =filterCarsByMaintenanceState(includeMaintenance);;
+
             List<GetAllCarsResponse> responses = cars
                     .stream()
                     .map(car -> mapper.map(car, GetAllCarsResponse.class))
@@ -54,6 +50,7 @@ public class CarManager implements CarService {
 
         Car car = mapper.map(request, Car.class);
         car.setId(0);
+        car.setState(State.AVAILABLE);
         repository.save(car);
         CreateCarResponse response = mapper.map(car, CreateCarResponse.class);
         return response;
@@ -70,6 +67,14 @@ public class CarManager implements CarService {
     }
 
     @Override
+    public void changeState(int id, State state) {
+        Car car=repository.findById(id).orElseThrow();
+        car.setState(state);
+        repository.save(car);
+
+    }
+
+    @Override
     public void delete(int id) {
         checkIfCarExist(id);
         repository.deleteById(id);
@@ -81,4 +86,11 @@ public class CarManager implements CarService {
     }
 
 
+    private List<Car> filterCarsByMaintenanceState(boolean includeMaintenance) {
+        if (includeMaintenance) {
+            return repository.findAll();
+        }
+
+        return repository.findAllByStateIsNot(State.MAINTENANCE);
+    }
 }
