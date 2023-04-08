@@ -7,6 +7,7 @@ import kodlama.io.rentacar.buisness.dto.responses.create.CreateCarResponse;
 import kodlama.io.rentacar.buisness.dto.responses.get.GetAllCarsResponse;
 import kodlama.io.rentacar.buisness.dto.responses.get.GetCarResponse;
 import kodlama.io.rentacar.buisness.dto.responses.update.UpdateCarResponse;
+import kodlama.io.rentacar.entities.Car;
 import kodlama.io.rentacar.entities.enums.State;
 import kodlama.io.rentacar.repository.CarRepository;
 import lombok.AllArgsConstructor;

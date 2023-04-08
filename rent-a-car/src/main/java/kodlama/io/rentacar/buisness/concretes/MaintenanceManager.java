@@ -122,7 +122,7 @@ public class MaintenanceManager implements MaintenanceService {
     }
 
     private void checkCarAvailabilityForMaintenance(CreateMaintenanceRequest request) {
-       if(carService.getById(request.) {
+       if(carService.getById(request.getCarId()).getState().equals(State.RENTED)) {
             throw new RuntimeException("Araç kirada olduğu için bakıma alınamaz!");
         }
     }
